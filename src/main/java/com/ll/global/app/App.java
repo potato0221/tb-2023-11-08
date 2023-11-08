@@ -18,46 +18,50 @@ public class App {
     public void run() {
         System.out.println("== 명언 앱 ==");
 
-        List<Quotation> quotations=new ArrayList<>();
-        long lastQuotationId=0;
+        List<Quotation> quotations = new ArrayList<>();
+        long lastQuotationId = 0;
 
-        while (true){
+        while (true) {
 
-            String cmd=scanner.nextLine().trim();
+            String cmd = scanner.nextLine().trim();
 
-            if(cmd.equals("등록")){
-                System.out.println("명언 : ");
-                final String content=scanner.nextLine().trim();
-                System.out.println("작가 : ");
-                final String authorName=scanner.nextLine().trim();
-                final long id=++lastQuotationId;
+            switch (cmd) {
+                case "등록" -> {
+                    System.out.print("명언 : ");
+                    final String content = scanner.nextLine().trim();
+                    System.out.print("작가 : ");
+                    final String authorName = scanner.nextLine().trim();
 
-                Quotation quotation=new Quotation(id,authorName,content);
-                quotations.add(quotation);
+                    final long id = ++lastQuotationId;
 
-                System.out.printf("%d번 명언이 등록 되었습니다.",(id));
-            }else if(cmd.equals("목록")){
-                System.out.println("번호 / 작가 / 명언");
-                System.out.println("--------------------");
+                    Quotation quotation = new Quotation(id, authorName, content);
+                    quotations.add(quotation);
 
-                quotations
-                        .reversed()
-                        .forEach(
-                                quotation -> System.out.printf(
-                                        "%d / %s / %s",
-                                        quotation.getId(),
-                                        quotation.getAuthorName(),
-                                        quotation.getContent()
-                                )
-                        );
+                    System.out.println("%d번 명언이 등록 되었습니다.".formatted(id));
+                }
+                case "목록" -> {
+                    System.out.println("번호 / 작가 / 명언");
+                    System.out.println("----------------------");
 
-            }else if(cmd.equals("종료")) return;
-
-
+                    quotations
+                            .reversed()
+                            .forEach(
+                                    quotation -> System.out.println(
+                                            "%d / %s / %s".formatted(
+                                                    quotation.getId(),
+                                                    quotation.getAuthorName(),
+                                                    quotation.getContent()
+                                            )
+                                    )
+                            );
+                }
+                case "종료" -> {
+                    return;
+                }
+            }
 
 
         }
-
 
 
     }
