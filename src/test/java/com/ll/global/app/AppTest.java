@@ -89,7 +89,7 @@ public class AppTest {
                 종료
                 """);
 
-        assertThat(out)
+        assertThat(out2)
                 .contains("1번 명언이 등록 되었습니다.")
                 .contains("2번 명언이 등록 되었습니다.")
                 .doesNotContain("3번 명언이 등록 되었습니다.");
