@@ -93,6 +93,28 @@ public class AppTest {
                 .doesNotContain("3번 명언이 등록 되었습니다.");
 
     }
+    @Test
+    @DisplayName("등록 할 때 마다 번호가 1씩 증가, 2건 등록")
+    void t6() {
+
+        String out = run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                등록
+                과거에 집착하지 마라.
+                작자미상
+                목록
+                """);
+
+        assertThat(out)
+                .contains("번호 / 작가 / 명언")
+                .contains("--------------------")
+                .contains("2 / 작자미상 / 과거에 집착하지 마라.")
+                .contains("1 / 작자미상 / 현재를 사랑하라.");
+
+    }
+
 
 
 }
