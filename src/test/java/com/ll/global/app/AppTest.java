@@ -94,7 +94,7 @@ public class AppTest {
 
     }
     @Test
-    @DisplayName("등록 할 때 마다 번호가 1씩 증가, 2건 등록")
+    @DisplayName("목록")
     void t6() {
 
         String out = run("""
