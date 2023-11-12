@@ -1,8 +1,8 @@
 package com.ll.global.rq;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Rq {
     private final String action;
@@ -13,22 +13,14 @@ public class Rq {
         final String[] cmdBIts = cmd.split("\\?", 2);
         action = cmdBIts[0];
         queryString = cmdBIts.length == 2 ? cmdBIts[1].trim() : "";
-        params = new HashMap<>();
 
-        if (queryString.isBlank()) return;
-
-        Arrays
-                .stream(queryString.split("&"))
-                .forEach(param -> {
-                    final String[] paramBits = param.split("=", 2);
-                    String paramName = paramBits[0].trim();
-                    String paramValue = paramBits[1].trim();
-
-                    params.put(paramName, paramValue);
-                });
-
-
-
+        params = Arrays.stream(queryString.split("&"))
+                .filter(param -> param.contains("="))
+                .map(param -> param.split("=", 2))
+                .collect(Collectors.toMap(
+                        paramBits -> paramBits[0].trim(),
+                        paramBits -> paramBits[1].trim(),
+                        (existing, replacement) -> replacement));
     }
 
     public String getAction() {
