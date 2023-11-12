@@ -32,10 +32,18 @@ public class App {
                 case "삭제" -> {
 
                     final long id = rq.getParameterAsLong("id", 0);
-                    quotations
-                            .removeIf(quotation -> quotation.getId() == id);
 
-                    System.out.printf("%d번 명언이 삭제 되었습니다.", id);
+                    quotations
+                            .stream()
+                            .filter(_quotation -> _quotation.getId() == id)
+                            .findFirst()
+                            .ifPresentOrElse(
+                                    quotation -> {
+                                        quotations.remove(quotation);
+                                        System.out.printf("%d번 명언이 삭제 되었습니다.", id);
+                                    },
+                                    () -> System.out.printf("%d번 명언은 존재하지 않습니다.", id)
+                            );
                 }
 
                 case "수정" -> {
@@ -47,12 +55,12 @@ public class App {
                             .findFirst()
                             .get();
 
-                    System.out.printf("명언(기존) : %s",quotation.getContent());
+                    System.out.printf("명언(기존) : %s", quotation.getContent());
                     System.out.println("명언 : ");
-                    final String content=scanner.nextLine().trim();
-                    System.out.printf("작가(기존) : %s",quotation.getAuthorName());
+                    final String content = scanner.nextLine().trim();
+                    System.out.printf("작가(기존) : %s", quotation.getAuthorName());
                     System.out.println("작가 : ");
-                    final String authorName=scanner.nextLine().trim();
+                    final String authorName = scanner.nextLine().trim();
 
                     quotation.setContent(content);
                     quotation.setAuthorName(authorName);
