@@ -40,6 +40,6 @@ public class RqTest {
     void t5(){
         final Rq rq=new Rq("삭제?id=4&이름=Alice");
         String age=rq.getParameter("나이","100");
-        assertThat(age).isEqualTo(100);
+        assertThat(age).isEqualTo("100");
     }
 }
