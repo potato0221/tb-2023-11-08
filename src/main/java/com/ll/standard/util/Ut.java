@@ -8,6 +8,11 @@ import java.nio.file.*;
 public class Ut {
     public static class file{
 
+
+        public static void save(String filePath, Object content) {
+
+
+        }
         @SneakyThrows
         public static void save(String filePath, String content) {
             final Path path = Paths.get(filePath);
@@ -60,7 +65,7 @@ public class Ut {
         }
 
         public static void save(String filePath, long content) {
-            save(filePath,String.valueOf(content));
+            save(filePath, java.lang.String.valueOf(content));
         }
     }
 }
