@@ -10,7 +10,7 @@ public class QuotationRepository {
     private final List<Quotation> quotations;
     private long lastQuotationId;
 
-    public QuotationRepository(){
+    public QuotationRepository() {
         quotations = new ArrayList<>();
         lastQuotationId = 0;
     }
@@ -32,11 +32,10 @@ public class QuotationRepository {
     }
 
     public void save(Quotation quotation) {
-        if(quotation.getId()==null){
+        if (quotation.getId() == null) {
             quotation.setId(++lastQuotationId);
             quotations.add(quotation);
-        }
-        else {
+        } else {
 
         }
     }

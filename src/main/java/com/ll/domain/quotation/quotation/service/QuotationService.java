@@ -12,7 +12,7 @@ public class QuotationService {
 
 
     public QuotationService() {
-        quotationRepository=new QuotationRepository();
+        quotationRepository = new QuotationRepository();
     }
 
 

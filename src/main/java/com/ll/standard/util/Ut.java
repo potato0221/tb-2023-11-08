@@ -8,16 +8,17 @@ import java.io.IOException;
 import java.nio.file.*;
 
 public class Ut {
-    public static class file{
-        private static final ObjectMapper OBJECT_MAPPER=new ObjectMapper();
+    public static class file {
+        private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
         @SneakyThrows
         public static void save(String filePath, Object obj) {
 
-            String jsonContent=OBJECT_MAPPER.writeValueAsString(obj);
-            save(filePath,jsonContent);
+            String jsonContent = OBJECT_MAPPER.writeValueAsString(obj);
+            save(filePath, jsonContent);
 
         }
+
         @SneakyThrows
         public static void save(String filePath, String content) {
             final Path path = Paths.get(filePath);
@@ -44,33 +45,33 @@ public class Ut {
 
         @SneakyThrows
         public static boolean delete(String filePath) {
-                try {
-                    Files.delete(Paths.get(filePath));
-                    return true;
-                }catch (NoSuchFileException e){
-                    return false;
-                }
+            try {
+                Files.delete(Paths.get(filePath));
+                return true;
+            } catch (NoSuchFileException e) {
+                return false;
+            }
 
 
         }
+
         @SneakyThrows
         public static String getContent(String filePath) {
             try {
                 return Files.readString(Paths.get(filePath));
-            }
-            catch (NoSuchFileException e){
+            } catch (NoSuchFileException e) {
                 return null;
             }
 
         }
 
         public static long getContentsAsLong(String testFilePath, long defaultValue) {
-            final String content =getContent(testFilePath);
+            final String content = getContent(testFilePath);
 
-            if(content==null) return defaultValue;
+            if (content == null) return defaultValue;
             try {
                 return Long.parseLong(content);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 return defaultValue;
             }
 
@@ -79,16 +80,17 @@ public class Ut {
         public static void save(String filePath, long content) {
             save(filePath, String.valueOf(content));
         }
-        @SneakyThrows
-        public static <T> T getContent(String filePath,Class<T> cls) {
-            final String content=getContent(filePath);
 
-            if(content==null){
+        @SneakyThrows
+        public static <T> T getContent(String filePath, Class<T> cls) {
+            final String content = getContent(filePath);
+
+            if (content == null) {
                 return null;
             }
             try {
-                return OBJECT_MAPPER.readValue(content,cls);
-            }catch (JsonProcessingException e){
+                return OBJECT_MAPPER.readValue(content, cls);
+            } catch (JsonProcessingException e) {
                 e.printStackTrace();
                 return null;
             }
