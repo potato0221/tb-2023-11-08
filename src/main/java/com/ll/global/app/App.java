@@ -23,10 +23,7 @@ public class App {
 
         while (true) {
 
-            final String cmd = scanner.nextLine().trim();
-            final String[] cmdBits=cmd.split("\\?",2);
-            final String action=cmdBits[0].trim();
-            final String queryString=cmdBits.length==2?cmdBits[1].trim():"";
+
 
             switch (action) {
                 case "삭제" -> {
