@@ -43,5 +43,14 @@ public class Ut {
         public static String getContents(String filePath) {
             return Files.readString(Paths.get(filePath));
         }
+
+        public static long getContentsAsLong(String testFilePath, long defaultValue) {
+            return -1;
+
+        }
+
+        public static void save(String filePath, long content) {
+            save(filePath,String.valueOf(content));
+        }
     }
 }
