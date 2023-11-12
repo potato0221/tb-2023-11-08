@@ -50,4 +50,12 @@ public class RqTest {
         Long age=rq.getParameterAsLong("id",0);
         assertThat(age).isEqualTo(4);
     }
+
+    @Test
+    @DisplayName("getParameterAsLong")
+    void t7(){
+        final Rq rq=new Rq("삭제?id=4번&이름=Alice");
+        Long age=rq.getParameterAsLong("id",0);
+        assertThat(age).isEqualTo(0);
+    }
 }
