@@ -1,5 +1,6 @@
 package com.ll.standard.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 
@@ -8,11 +9,13 @@ import java.nio.file.*;
 
 public class Ut {
     public static class file{
+        private static final ObjectMapper OBJECT_MAPPER=new ObjectMapper();
 
         @SneakyThrows
         public static void save(String filePath, Object obj) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonContent=objectMapper.writeValueAsString(obj);
+
+            String jsonContent=OBJECT_MAPPER.writeValueAsString(obj);
+            save(filePath,jsonContent);
 
         }
         @SneakyThrows
@@ -74,12 +77,21 @@ public class Ut {
         }
 
         public static void save(String filePath, long content) {
-            save(filePath, java.lang.String.valueOf(content));
+            save(filePath, String.valueOf(content));
         }
+        @SneakyThrows
+        public static <T> T getContent(String filePath,Class<T> cls) {
+            final String content=getContent(filePath);
 
-        public static <T> T getContent(String testFilePath,Class<?> cls) {
-            return null;
-
+            if(content==null){
+                return null;
+            }
+            try {
+                return OBJECT_MAPPER.readValue(content,cls);
+            }catch (JsonProcessingException e){
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 }

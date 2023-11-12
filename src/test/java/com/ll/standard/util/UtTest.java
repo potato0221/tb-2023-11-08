@@ -2,6 +2,8 @@ package com.ll.standard.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -74,19 +76,25 @@ public class UtTest {
     @Test
     @DisplayName("JSON 형식으로 파일에 저장된 객체를 읽을 수 있다.")
     void t6() {
-        Ut.file.save(testFilePath, new TempArticle(1,"제목","내용"));
-        final TempArticle tempArticle = Ut.file.getContent(testFilePath,TempArticle.class);
 
-        assertThat(tempArticle).isNotNull();
+        // 객체를 파일에 저장합니다.
+        Ut.file.save(testFilePath, new TempArticle(1,"제목","내용"));
+
+        final TempArticle actualArticle = Ut.file.getContent(testFilePath, TempArticle.class);
+
+        assertThat(actualArticle).isNotNull();
+
     }
 
 
 }
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Getter
 class TempArticle{
     private long id;
-    private final String title;
-    private final String content;
+    private String title;
+    private String content;
 
 }
