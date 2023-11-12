@@ -75,20 +75,7 @@ public class App {
                     actionWrite();
                 }
                 case "목록" -> {
-                    System.out.println("번호 / 작가 / 명언");
-                    System.out.println("----------------------");
-
-                    quotations
-                            .reversed()
-                            .forEach(
-                                    quotation -> System.out.println(
-                                            "%d / %s / %s".formatted(
-                                                    quotation.getId(),
-                                                    quotation.getAuthorName(),
-                                                    quotation.getContent()
-                                            )
-                                    )
-                            );
+                    actionShowList();
                 }
                 case "종료" -> {
                     return;
@@ -99,6 +86,24 @@ public class App {
         }
 
 
+    }
+
+    private void actionShowList() {
+
+        System.out.println("번호 / 작가 / 명언");
+        System.out.println("----------------------");
+
+        quotations
+                .reversed()
+                .forEach(
+                        quotation -> System.out.println(
+                                "%d / %s / %s".formatted(
+                                        quotation.getId(),
+                                        quotation.getAuthorName(),
+                                        quotation.getContent()
+                                )
+                        )
+                );
     }
 
     private void actionWrite() {
