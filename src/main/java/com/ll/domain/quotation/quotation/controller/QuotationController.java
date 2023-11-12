@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class QuotationController {
-    final Scanner scanner;
-    final List<Quotation> quotations;
-    long lastQuotationId;
+    private final Scanner scanner;
+    private final List<Quotation> quotations;
+    private long lastQuotationId;
 
-    public QuotationController(final Scanner scanner){
-        this.scanner=scanner;
+    public QuotationController(final Scanner scanner) {
+        this.scanner = scanner;
         quotations = new ArrayList<>();
         lastQuotationId = 0;
     }
@@ -85,14 +85,14 @@ public class QuotationController {
 
         final long id = ++lastQuotationId;
 
-        Quotation quotation = new Quotation(id, authorName, content);
+        final Quotation quotation = new Quotation(id, authorName, content);
         quotations.add(quotation);
 
         System.out.println("%d번 명언이 등록 되었습니다.".formatted(id));
     }
 
     public void dispatch(Rq rq) {
-        switch (rq.getAction()){
+        switch (rq.getAction()) {
             case "삭제" -> actionRemove(rq);
             case "수정" -> actionModify(rq);
             case "목록" -> actionShowList();

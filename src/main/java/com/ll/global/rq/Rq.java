@@ -29,20 +29,20 @@ public class Rq {
     }
 
     public String getParameter(final String paramName) {
-        return getParameter(paramName,null);
+        return getParameter(paramName, null);
     }
 
-    public String getParameter(final String paramName,final String defaultValue) {
-        return params.getOrDefault(paramName,defaultValue);
+    public String getParameter(final String paramName, final String defaultValue) {
+        return params.getOrDefault(paramName, defaultValue);
     }
 
     public Long getParameterAsLong(String paramName, long defaultValue) {
-        String parameterValue=getParameter(paramName);
-        if(parameterValue==null) return defaultValue;
+        String parameterValue = getParameter(paramName);
+        if (parameterValue == null) return defaultValue;
 
         try {
             return Long.parseLong(parameterValue);
-        }catch (NumberFormatException ignored){
+        } catch (NumberFormatException ignored) {
         }
         return defaultValue;
 

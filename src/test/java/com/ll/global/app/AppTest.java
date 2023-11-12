@@ -93,6 +93,7 @@ public class AppTest {
                 .doesNotContain("3번 명언이 등록 되었습니다.");
 
     }
+
     @Test
     @DisplayName("목록")
     void t6() {
@@ -136,6 +137,7 @@ public class AppTest {
                 .contains("1 / 작자미상 / 현재를 사랑하라.");
 
     }
+
     @Test
     @DisplayName("삭제")
     void t8() {
@@ -234,6 +236,7 @@ public class AppTest {
                 .contains("3번 명언은 존재하지 않습니다.");
 
     }
+
     @Test
     @DisplayName("존재하지 않는 명언에 대한 수정 예외처리")
     void t12() {
@@ -256,7 +259,6 @@ public class AppTest {
                 .contains("3번 명언은 존재하지 않습니다.");
 
     }
-
 
 
 }
