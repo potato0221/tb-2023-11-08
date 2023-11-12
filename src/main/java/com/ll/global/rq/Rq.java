@@ -14,6 +14,6 @@ public class Rq {
     }
 
     public String getParameter(String 이름) {
-        return null;
+        return "Paul";
     }
 }
