@@ -12,4 +12,8 @@ public class Rq {
 
         return action;
     }
+
+    public String getParameter(String 이름) {
+        return null;
+    }
 }
