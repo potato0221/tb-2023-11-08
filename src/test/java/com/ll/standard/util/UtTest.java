@@ -1,9 +1,6 @@
 package com.ll.standard.util;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -77,7 +74,7 @@ public class UtTest {
     void t6() {
 
         // 기대하는 객체를 생성합니다.
-        TempArticle expectedArticle = new TempArticle(1, "제목", "내용");
+        final TempArticle expectedArticle = new TempArticle(1, "제목", "내용");
 
         // 객체를 파일에 저장합니다.
         Ut.file.save(testFilePath, expectedArticle);
@@ -97,7 +94,7 @@ public class UtTest {
 }
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @Getter
 class TempArticle {
