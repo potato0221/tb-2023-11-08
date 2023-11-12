@@ -35,7 +35,7 @@ public class UtTest {
     @Test
     @DisplayName("파일 내용 읽기")
     void t2() {
-        final String content = Ut.file.getContents(testFilePath);
+        final String content = Ut.file.getContent(testFilePath);
 
         assertThat(content).isEqualTo("내용");
     }

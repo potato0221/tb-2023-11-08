@@ -40,12 +40,19 @@ public class Ut {
                 Files.delete(Paths.get(filePath));
         }
         @SneakyThrows
-        public static String getContents(String filePath) {
+        public static String getContent(String filePath) {
             return Files.readString(Paths.get(filePath));
         }
 
         public static long getContentsAsLong(String testFilePath, long defaultValue) {
-            return -1;
+            final String content =getContent(testFilePath);
+
+            if(content==null) return defaultValue;
+            try {
+                return Long.parseLong(content);
+            }catch (NumberFormatException e){
+                return defaultValue;
+            }
 
         }
 
