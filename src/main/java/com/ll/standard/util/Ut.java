@@ -1,5 +1,6 @@
 package com.ll.standard.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
@@ -8,9 +9,10 @@ import java.nio.file.*;
 public class Ut {
     public static class file{
 
-
-        public static void save(String filePath, Object content) {
-
+        @SneakyThrows
+        public static void save(String filePath, Object obj) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonContent=objectMapper.writeValueAsString(obj);
 
         }
         @SneakyThrows
@@ -38,8 +40,15 @@ public class Ut {
         }
 
         @SneakyThrows
-        public static void delete(String filePath) {
-                Files.delete(Paths.get(filePath));
+        public static boolean delete(String filePath) {
+                try {
+                    Files.delete(Paths.get(filePath));
+                    return true;
+                }catch (NoSuchFileException e){
+                    return false;
+                }
+
+
         }
         @SneakyThrows
         public static String getContent(String filePath) {
