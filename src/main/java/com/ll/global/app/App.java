@@ -25,17 +25,38 @@ public class App {
         while (true) {
             final String cmd = scanner.nextLine().trim();
 
-            final Rq rq=new Rq(cmd);
-            final String action=rq.getAction();
+            final Rq rq = new Rq(cmd);
+            final String action = rq.getAction();
 
             switch (action) {
                 case "삭제" -> {
 
-                    final long id=rq.getParameterAsLong("id",0);
+                    final long id = rq.getParameterAsLong("id", 0);
                     quotations
                             .removeIf(quotation -> quotation.getId() == id);
 
-                    System.out.printf("%d번 명언이 삭제 되었습니다.",id);
+                    System.out.printf("%d번 명언이 삭제 되었습니다.", id);
+                }
+
+                case "수정" -> {
+
+                    final long id = rq.getParameterAsLong("id", 0);
+                    final Quotation quotation = quotations
+                            .stream()
+                            .filter(_quotation -> _quotation.getId() == id)
+                            .findFirst()
+                            .get();
+
+                    System.out.printf("명언(기존) : %s",quotation.getContent());
+                    System.out.println("명언 : ");
+                    final String content=scanner.nextLine().trim();
+                    System.out.printf("작가(기존) : %s",quotation.getAuthorName());
+                    System.out.println("작가 : ");
+                    final String authorName=scanner.nextLine().trim();
+
+                    quotation.setContent(content);
+                    quotation.setAuthorName(authorName);
+                    System.out.printf("%d번 명언이 수정 되었습니다.", id);
                 }
 
                 case "등록" -> {
