@@ -12,7 +12,7 @@ public class QuotationFileRepositoryTest {
 
     @BeforeEach
     void beforeEach(){
-        Ut.file.delete("data/prod/quotation");
+        Ut.file.delete(QuotationFileRepository.QUOTATION_DATA_PATH);
     }
     @Test
     @DisplayName("save를 하면 quotation의 id에 새 번호가 할당된다.")
@@ -30,6 +30,7 @@ public class QuotationFileRepositoryTest {
         Quotation quotation=new Quotation("작가1","내용1");
         repository.save(quotation);
 
-        assertThat(Ut.file.exists("data/prod/quotation/1.json")).isTrue();
+        assertThat(Ut.file.exists(repository._getQuotationFilePath(quotation))).isTrue();
+
     }
 }
