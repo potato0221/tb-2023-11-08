@@ -46,7 +46,7 @@ public class UtTest {
     @DisplayName("파일 내용을 읽은 후 long 타입으로 변환")
     void t3() {
         Ut.file.save(test2FilePath, "100");
-        final long age = Ut.file.getContentsAsLong(test2FilePath, 0);
+        final long age = Ut.file.getContentAsLong(test2FilePath, 0);
         assertThat(age).isEqualTo(100);
     }
 

@@ -6,13 +6,14 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.Comparator;
 
 public class Ut {
     public static class file {
         private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
         @SneakyThrows
-        public static void save(String filePath, Object obj) {
+        public static void save(final String filePath, final Object obj) {
 
             String jsonContent = OBJECT_MAPPER.writeValueAsString(obj);
             save(filePath, jsonContent);
@@ -20,7 +21,7 @@ public class Ut {
         }
 
         @SneakyThrows
-        public static void save(String filePath, String content) {
+        public static void save(final String filePath, final String content) {
             final Path path = Paths.get(filePath);
 
             try {
@@ -39,61 +40,72 @@ public class Ut {
             }
         }
 
-        public static boolean exists(String filePath) {
+        public static boolean exists(final String filePath) {
             return Files.exists(Paths.get(filePath));
         }
 
         @SneakyThrows
-        public static boolean delete(String filePath) {
+        public static boolean delete(final String filePath) {
+            final Path path = Paths.get(filePath);
+
             try {
-                Files.delete(Paths.get(filePath));
+                Files.delete(path);
+                return true;
+            } catch (DirectoryNotEmptyException e) {
+                Files.walk(path)
+                        .sorted(Comparator.reverseOrder())
+                        .forEach(_path -> {
+                            try {
+                                Files.delete(_path);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
                 return true;
             } catch (NoSuchFileException e) {
                 return false;
             }
-
-
         }
 
-        @SneakyThrows
-        public static String getContent(String filePath) {
-            try {
-                return Files.readString(Paths.get(filePath));
-            } catch (NoSuchFileException e) {
-                return null;
+            @SneakyThrows
+            public static String getContent (String filePath){
+                try {
+                    return Files.readString(Paths.get(filePath));
+                } catch (NoSuchFileException e) {
+                    return null;
+                }
+
             }
 
-        }
+            public static long getContentAsLong (String testFilePath,long defaultValue){
+                final String content = getContent(testFilePath);
 
-        public static long getContentsAsLong(String testFilePath, long defaultValue) {
-            final String content = getContent(testFilePath);
+                if (content == null) return defaultValue;
+                try {
+                    return Long.parseLong(content);
+                } catch (NumberFormatException e) {
+                    return defaultValue;
+                }
 
-            if (content == null) return defaultValue;
-            try {
-                return Long.parseLong(content);
-            } catch (NumberFormatException e) {
-                return defaultValue;
             }
 
-        }
-
-        public static void save(String filePath, long content) {
-            save(filePath, String.valueOf(content));
-        }
-
-        @SneakyThrows
-        public static <T> T getContent(String filePath, Class<T> cls) {
-            final String content = getContent(filePath);
-
-            if (content == null) {
-                return null;
+            public static void save (String filePath,long content){
+                save(filePath, String.valueOf(content));
             }
-            try {
-                return OBJECT_MAPPER.readValue(content, cls);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-                return null;
+
+            @SneakyThrows
+            public static <T > T getContent(String filePath, Class < T > cls) {
+                final String content = getContent(filePath);
+
+                if (content == null) {
+                    return null;
+                }
+                try {
+                    return OBJECT_MAPPER.readValue(content, cls);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
             }
         }
     }
-}

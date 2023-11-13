@@ -8,22 +8,22 @@ import java.util.Optional;
 
 public class QuotationMemoryRepository implements QuotationRepository{
     private final List<Quotation> quotations;
-    private long lastQuotationId;
+    private long lastId;
 
     public QuotationMemoryRepository() {
         quotations = new ArrayList<>();
-        lastQuotationId = 0;
+        lastId = 0;
     }
 
     public List<Quotation> findAll() {
         return quotations;
     }
 
-    public void delete(Quotation quotation) {
+    public void delete(final Quotation quotation) {
         quotations.remove(quotation);
     }
 
-    public Optional<Quotation> findById(long id) {
+    public Optional<Quotation> findById(final long id) {
 
         return quotations
                 .stream()
@@ -31,9 +31,9 @@ public class QuotationMemoryRepository implements QuotationRepository{
                 .findFirst();
     }
 
-    public void save(Quotation quotation) {
+    public void save(final Quotation quotation) {
         if (quotation.getId() == null) {
-            quotation.setId(++lastQuotationId);
+            quotation.setId(++lastId);
             quotations.add(quotation);
         } else {
 
